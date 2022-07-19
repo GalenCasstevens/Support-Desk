@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
 
 function Login() {
 	const [formData, setFormData] = useState({
@@ -33,6 +34,13 @@ function Login() {
 		dispatch(reset);
 	}, [isError, isSuccess, user, message, navigate, dispatch]);
 
+	const onChange = (e) => {
+		setFormData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
@@ -44,12 +52,9 @@ function Login() {
 		dispatch(login(userData));
 	};
 
-	const onChange = (e) => {
-		setFormData((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
-	};
+	if (isLoading) {
+		return <Spinner />;
+	}
 
 	return (
 		<>

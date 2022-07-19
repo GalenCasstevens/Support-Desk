@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { register, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
 
 function Register() {
 	const [formData, setFormData] = useState({
@@ -35,6 +36,13 @@ function Register() {
 		dispatch(reset);
 	}, [isError, isSuccess, user, message, navigate, dispatch]);
 
+	const onChange = (e) => {
+		setFormData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
@@ -51,12 +59,9 @@ function Register() {
 		}
 	};
 
-	const onChange = (e) => {
-		setFormData((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
-	};
+	if (isLoading) {
+		return <Spinner />;
+	}
 
 	return (
 		<>
