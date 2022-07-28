@@ -6,10 +6,10 @@ const PrivateRoute = () => {
 	const { loggedIn, checkingStatus } = useAuthStatus();
 
 	if (checkingStatus) {
-        return <Spinner />
-    }
+		return <Spinner />;
+	}
 
-	return loggedIn ? <Outlet />;
+	return loggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
