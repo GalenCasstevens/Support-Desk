@@ -3,20 +3,64 @@ import { useSelector } from 'react-redux';
 
 function NewTicket() {
 	const { user } = useSelector((state) => state.auth);
-	const [name, setName] = useState(user.name);
-	const [email, setEmail] = useState(user.email);
+	const [name] = useState(user.name);
+	const [email] = useState(user.email);
 	const [product, setProduct] = useState('Razer Blade 15');
 	const [description, setDescription] = useState('');
 
+	const onSubmit = (e) => {
+		e.preventDefault();
+	};
+
 	return (
 		<>
-			<section>
+			<section className="heading">
 				<h1>Create New Ticket</h1>
 				<p>Please fill out the form below</p>
 			</section>
 
-			<section>
-				<div className="form-group"></div>
+			<section className="form">
+				<div className="form-group">
+					<label htmlFor="name">Customer Name</label>
+					<input type="text" className="form-control" value={name} disabled />
+				</div>
+				<div className="form-group">
+					<label htmlFor="email">Customer Email</label>
+					<input type="text" className="form-control" value={email} disabled />
+				</div>
+				<form onSubmit={onSubmit}>
+					<div className="form-group">
+						<label htmlFor="product">Product</label>
+						<select
+							name="product"
+							id="product"
+							value={product}
+							onChange={(e) => setProduct(e.target.value)}
+						>
+							<option value="Razer Blade 15">Razer Blade 15</option>
+							<option value="Asus ROG Zephyrus G14">
+								Asus ROG Zephyrus G14
+							</option>
+							<option value="Lenovo Legion 5 Pro">Lenovo Legion 5 Pro</option>
+							<option value="MSI GS66 Stealth">MSI GS66 Stealth</option>
+							<option value="Acer Nitro 5">Acer Nitro 5</option>
+						</select>
+					</div>
+					<div className="form-group">
+						<label htmlFor="description">Description of the issue</label>
+						<textarea
+							name="description"
+							id="description"
+							className="form-control"
+							placeholder="Description"
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+						></textarea>
+					</div>
+					<div className="form-group">
+						<button className="btn btn-block">Submit</button>
+					</div>
+				</form>
 			</section>
 		</>
 	);
