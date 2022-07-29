@@ -22,14 +22,10 @@ function Login() {
 	);
 
 	useEffect(() => {
-		if (isError) {
-			toast.error(message);
-		}
+		if (isError) toast.error(message);
 
 		// Redirect when logged in
-		if (isSuccess || user) {
-			navigate('/');
-		}
+		if (isSuccess || user) navigate('/');
 
 		dispatch(reset);
 	}, [isError, isSuccess, user, message, navigate, dispatch]);
