@@ -24,11 +24,15 @@ function NewTicket() {
 
 		if (isSuccess) {
 			dispatch(reset());
+			navigate('/tickets');
 		}
-	});
+
+		dispatch(reset());
+	}, [dispatch, isError, isSuccess, navigate, message]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		dispatch(createTicket({ product, description }));
 	};
 
 	return (
