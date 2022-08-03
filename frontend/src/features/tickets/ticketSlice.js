@@ -33,11 +33,32 @@ export const createTicket = createAsyncThunk(
 
 // Get user tickets
 export const getTickets = createAsyncThunk(
-	'tickets/view',
+	'tickets/getAll',
 	async (ticketData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
 			return await ticketService.getTickets(token);
+		} catch (error) {
+			console.log(error);
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// Get user ticket
+export const getTicket = createAsyncThunk(
+	'tickets/get',
+	async (ticketId, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await ticketService.getTicket(ticketId, token);
 		} catch (error) {
 			console.log(error);
 			const message =
