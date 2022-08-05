@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTicket, reset } from '../features/tickets/ticketSlice';
-import { useParams } from 'react-router-dom';
+import { getTicket, reset, closeTicket } from '../features/tickets/ticketSlice';
+import { useParams, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 
@@ -12,6 +12,7 @@ function Ticket() {
 	);
 
 	const params = useParams();
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { ticketId } = useParams();
 
@@ -29,6 +30,11 @@ function Ticket() {
 		dispatch(getTicket(ticketId));
 		// eslint-disable-next-line
 	}, [isError, message, ticketId]);
+
+	// Close ticket
+	const onTicketClose = () => {
+		dispatch(closeTicket);
+	};
 
 	if (isLoading) {
 		return <Spinner />;
@@ -57,6 +63,12 @@ function Ticket() {
 					<p>{ticket.description}</p>
 				</div>
 			</header>
+
+			{ticket.status !== 'closed' && (
+				<button onClick={onTicketClose} className="btn btn-block btn-danger">
+					Close Ticket
+				</button>
+			)}
 		</div>
 	);
 }
