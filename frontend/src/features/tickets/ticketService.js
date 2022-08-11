@@ -55,6 +55,8 @@ const closeTicket = async (ticketId, token) => {
 		config
 	);
 
+	console.log('closing ticcket...');
+
 	return response.data;
 };
 

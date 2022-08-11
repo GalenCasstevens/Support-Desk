@@ -33,8 +33,9 @@ function Ticket() {
 
 	// Close ticket
 	const onTicketClose = () => {
-		dispatch(closeTicket);
+		dispatch(closeTicket(ticketId));
 		toast.success('Ticket Closed');
+		navigate('/tickets');
 	};
 
 	if (isLoading) {
