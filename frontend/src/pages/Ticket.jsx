@@ -34,6 +34,7 @@ function Ticket() {
 	// Close ticket
 	const onTicketClose = () => {
 		dispatch(closeTicket);
+		toast.success('Ticket Closed');
 	};
 
 	if (isLoading) {
